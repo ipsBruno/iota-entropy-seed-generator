@@ -1,0 +1,34 @@
+<script>
+
+var MAX_LEN = 81;
+var CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ9";
+
+
+if(!window.crypto || !window.crypto.getRandomValues) {
+  alert('Change your navigator');
+}
+
+else {
+	var address = '';
+
+	var values = new Uint32Array(2);
+
+	var entropyTime = 100;
+
+	var charLen = CHAR_SET.length;
+
+	for(i = 0; i < MAX_LEN; i++) {
+		setTimeout(function() { 
+			window.crypto.getRandomValues(values);
+			address += CHAR_SET[values[1] % charLen];
+		}, i * entropyTime );
+	}
+
+	setTimeout(function() { 
+		alert(address);
+	}, (MAX_LEN+1) * entropyTime );
+
+}
+
+</script>
+
